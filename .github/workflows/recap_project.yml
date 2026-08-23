@@ -2,10 +2,10 @@ name: Python Linting Pipeline
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  # pull_request:
+  #   branches: [ main ]
 jobs:
-  Create_Repo_and_tests:
+  Download_repo_and_run_script:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository code
@@ -13,3 +13,21 @@ jobs:
         
       - name: Run script
         run: echo "Hello World"
+  
+  Setup_Python_and_run_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+        
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install test
+        run: pip install pytest  
+
+      - name: Run test
+        run: pytest tests/test_sample.py  
+     
