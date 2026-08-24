@@ -16,15 +16,18 @@ jobs:
   
   Setup_Python_and_run_test:
     needs: Download_repo_and_run_script
+    strategy:
+      matrix:
+        python-version: [3.11, 3.10, 3.9]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository code
         uses: actions/checkout@v4
         
-      - name: Set up Python 3.11
+      - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: ${{ matrix.python-version }}
           cache: 'pip'
            
       - name: Install test
