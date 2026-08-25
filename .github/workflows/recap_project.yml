@@ -36,5 +36,13 @@ jobs:
       - name: Run test
         run: pytest tests/  
 
-     
+  Build_Docker_image:
+    needs: Setup_Python_and_run_test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+        
+      - name: Build Docker image
+        run: docker build -t myy-app:latest .
   
