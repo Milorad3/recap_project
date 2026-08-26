@@ -54,4 +54,15 @@ jobs:
 
       - name: Push Docker image
         run: docker push milorad86/myy-app:latest
+
+  Deploy_to_Render:
+    needs: Build_Docker_image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Render
+        run: |
+          curl -fX POST ${{ secrets.RENDER_DEPLOY_HOOK }}"
   
