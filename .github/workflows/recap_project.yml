@@ -64,5 +64,5 @@ jobs:
 
       - name: Deploy to Render
         run: |
-          curl -fX POST ${{ secrets.RENDER_DEPLOY_HOOK }}"
+          curl -fX POST "${{ secrets.RENDER_DEPLOY_HOOK }}"
   
