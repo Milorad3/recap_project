@@ -93,7 +93,7 @@ jobs:
     steps:
       - name: Notify on failure
         run: |
-          curl -X POST "${{ secrets.DISCORD_WEBHOOK }}" \
+          curl -fX POST "${{ secrets.DISCORD_WEBHOOK }}" \
             -H "Content-Type: application/json" \
             -d '{"content": "Pipeline failed!"}'
           
