@@ -71,7 +71,7 @@ jobs:
 
       - name: Deploy to Render
         run: |
-          curl -fX POST "${{ secrets.RENDER_STAGING_DEPLOY_HOOK }}"
+          curl -fX POST "${{ secrets.RENDER_STAGINGY_DEPLOY_HOOK }}"
   
   
   Deploy_to_Production:
@@ -86,3 +86,14 @@ jobs:
       - name: Deploy to Render
         run: |
           curl -fX POST "${{ secrets.RENDER_PROD_DEPLOY_HOOK }}"
+  Notify_on_Failure:
+    needs: [Download_repo_and_run_script, Setup_Python_and_run_test, Build_Docker_image, Deploy_to_Staging, Deploy_to_Production]
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify on failure
+        run: |
+          curl -X POST "${{ secrets.DISCORD_WEBHOOK }}" \
+            -H "Content-Type: application/json" \
+            -d '{"content": "Pipeline failed!"}'
+          
