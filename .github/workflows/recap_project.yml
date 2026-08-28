@@ -50,10 +50,16 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
       - name: Build Docker image
-        run: docker build -t milorad86/myy-app:latest . ${{github.sha}}
+        run: | 
+            docker build -t milorad86/myy-app:latest . 
+            docker push milorad86/myy-app:${{github.sha}}
+
 
       - name: Push Docker image
-        run: docker push milorad86/myy-app:latest ${{github.sha}}
+        run: |
+          docker push milorad86/myy-app:latest
+          docker push milorad86/myy-app:${{github.sha}}
+
 
   Deploy_to_Render:
     needs: Build_Docker_image
