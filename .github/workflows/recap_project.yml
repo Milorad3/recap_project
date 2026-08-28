@@ -51,13 +51,15 @@ jobs:
 
       - name: Build Docker image
         run: | 
-            docker build -t milorad86/myy-app:latest -t milorad86/myy-app:${{github.sha}} .
+           docker build -t milorad86/myy-app:latest .
+        #   docker build -t milorad86/myy-app:latest -t milorad86/myy-app:${{github.sha}} .
+           
 
 
       - name: Push Docker image
         run: |
-          docker push milorad86/myy-app:latest
-          docker push milorad86/myy-app:${{github.sha}}
+           docker push milorad86/myy-app:latest
+        #  docker push milorad86/myy-app:${{github.sha}}
 
 
   Deploy_to_Render:
