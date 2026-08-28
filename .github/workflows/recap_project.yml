@@ -76,6 +76,8 @@ jobs:
   
   Deploy_to_Production:
     needs: Deploy_to_Staging
+    environment:
+      name: production
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository code
