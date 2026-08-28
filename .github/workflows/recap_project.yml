@@ -91,9 +91,9 @@ jobs:
     if: failure()
     runs-on: ubuntu-latest
     steps:
-      - name: Notify on failure
-        run: |
-          curl -fX POST "${{ secrets.DISCORD_WEBHOOK }}" \
-            -H "Content-Type: application/json" \
-            -d '{"content": "Pipeline failed!"}'
-          
+    - name: Notify on failure
+      run: |
+        curl -fX POST "${{ secrets.DISCORD_WEBHOOK }}" \
+          -H "Content-Type: application/json" \
+          -d '{"content": "🔴 Pipeline FAILED\nRepo: ${{ github.repository }}\nBranch: ${{ github.ref_name }}\nCommit: ${{ github.sha }}\nAutor: ${{ github.actor }}\nDetalji: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"}'
+              
