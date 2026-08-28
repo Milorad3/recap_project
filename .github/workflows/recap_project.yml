@@ -62,7 +62,7 @@ jobs:
         #  docker push milorad86/myy-app:${{github.sha}}
 
 
-  Deploy_to_Render:
+  Deploy_to_Staging:
     needs: Build_Docker_image
     runs-on: ubuntu-latest
     steps:
@@ -71,5 +71,16 @@ jobs:
 
       - name: Deploy to Render
         run: |
-          curl -fX POST "${{ secrets.RENDER_DEPLOY_HOOK }}"
+          curl -fX POST "${{ secrets.RENDER_STAGING_DEPLOY_HOOK }}"
   
+  
+  Deploy_to_Production:
+    needs: Deploy_to_Staging
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Render
+        run: |
+          curl -fX POST "${{ secrets.RENDER_PROD_DEPLOY_HOOK }}"
