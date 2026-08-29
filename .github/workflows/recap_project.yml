@@ -4,6 +4,8 @@ on:
     branches: [ main ]
   # pull_request:
   #   branches: [ main ]
+permissions:
+  contents: write
 jobs:
   Download_repo_and_run_script:
     runs-on: ubuntu-latest
@@ -71,7 +73,7 @@ jobs:
 
       - name: Deploy to Render
         run: |
-          curl -fX POST "${{ secrets.RENDER_STAGINGY_DEPLOY_HOOK }}"
+          curl -fX POST "${{ secrets.RENDER_STAGING_DEPLOY_HOOK }}"
   
   
   Deploy_to_Production:
@@ -97,3 +99,15 @@ jobs:
           -H "Content-Type: application/json" \
           -d '{"content": "🔴 Pipeline FAILED\nRepo: ${{ github.repository }}\nBranch: ${{ github.ref_name }}\nCommit: ${{ github.sha }}\nAutor: ${{ github.actor }}\nDetalji: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"}'
               
+  Create_Release:
+    needs: Deploy_to_Production
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          tag_name: release-${{ github.sha }}
