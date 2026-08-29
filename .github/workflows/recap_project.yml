@@ -23,17 +23,11 @@ jobs:
         python-version: [3.14, 3.13, 3.12]
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository code
-        uses: actions/checkout@v4
-        
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+      - name: Reusable workflow
+        uses: ./.github/actions/setup-python-env
         with:
           python-version: ${{ matrix.python-version }}
-          cache: 'pip'
-           
-      - name: Install test
-        run: pip install -r requirements.txt  
+
 
       - name: Run test
         run: pytest tests/  
