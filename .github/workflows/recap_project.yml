@@ -23,9 +23,8 @@ jobs:
         python-version: [3.14, 3.13, 3.12]
     runs-on: ubuntu-latest
     steps:
-      - name: Reusable workflow
-        uses: ./.github/actions/setup-python-env
-        with:
+      -  uses: ./.github/actions/setup-python-env
+         with:
           python-version: ${{ matrix.python-version }}
 
 
