@@ -1,7 +1,7 @@
 name: 'Setup Python Environment'
 description: 'Checkout, setup Python, and install dependencies'
 inputs:
-  python-version:
+  python-reusable:
     description: 'Python version to use'
     required: true
 runs:
@@ -11,10 +11,10 @@ runs:
     - name: Checkout repository code
       uses: actions/checkout@v4
         
-    - name: Set up Python ${{ inputs.python-version }}
+    - name: Set up Python ${{ inputs.python-reusable }}
       uses: actions/setup-python@v5
       with:
-          python-version: ${{ inputs.python-version }}
+          python-version: ${{ inputs.python-reusable }}
           cache: 'pip'
            
     - name: Install test
