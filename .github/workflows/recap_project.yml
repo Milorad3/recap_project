@@ -154,7 +154,6 @@ jobs:
           path: terraform/output.txt
 
   Test_Self_Hosted:
-    needs: Terraform_Apply
     runs-on: self-hosted
     steps:
       - name: Checkout repository code
