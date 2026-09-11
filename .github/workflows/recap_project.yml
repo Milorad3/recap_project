@@ -48,9 +48,18 @@ jobs:
 
       - name: Build Docker image
         run: | 
-           docker build -t milorad86/myy-app:latest .
+           docker build -t milorad86/my-app:latest .
         #   docker build -t milorad86/myy-app:latest -t milorad86/myy-app:${{github.sha}} .
-           
+      
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: 'milorad86/my-app:latest'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'  
 
 
       - name: Push Docker image
@@ -153,11 +162,11 @@ jobs:
           name: terraform-output
           path: terraform/output.txt
 
-  Test_Self_Hosted:
-    runs-on: self-hosted
-    steps:
-      - name: Checkout repository code
-        uses: actions/checkout@v4
+  # Test_Self_Hosted:
+  #   runs-on: self-hosted
+  #   steps:
+  #     - name: Checkout repository code
+  #       uses: actions/checkout@v4
 
-      - name: Run on my machine
-        run: echo "Running on self-hosted runner"
+  #     - name: Run on my machine
+  #       run: echo "Running on self-hosted runner"
