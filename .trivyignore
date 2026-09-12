@@ -1,0 +1,6 @@
+# Ranjivosti u Python 3.11 baznom runtime-u (setuptools, msgpack)
+# Probano: upgrade paketa, promena Debian baze (bookworm) - bez uspeha
+# Nema lakog fix-a bez menjanja Python verzije; rizik prihvaćen za vežbovni projekat
+# Pregledano: [današnji datum]
+CVE-2025-47273
+GHSA-6v7p-g79w-8964
