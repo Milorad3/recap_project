@@ -2,10 +2,16 @@ name: Manual Test
 
 on:
   workflow_dispatch:
+    inputs:
+      commit_sha:
+        description: 'Commit SHA koji unosiš'
+        required: true
+        type: string
 
 jobs:
   Hello:
     runs-on: ubuntu-latest
     steps:
       - name: Say hello
-        run: echo "Ovo sam ručno pokrenuo!"
+        run: |
+          echo "Ti si uneo: '${{ inputs.commit_sha }}'"
