@@ -48,8 +48,8 @@ jobs:
 
       - name: Build Docker image
         run: | 
-           docker build -t milorad86/my-app:latest .
-        #   docker build -t milorad86/myy-app:latest -t milorad86/myy-app:${{github.sha}} .
+            docker build -t milorad86/my-app:latest -t milorad86/my-app:${{github.sha}} .
+          #  docker build -t milorad86/my-app:latest .
       
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@v0.36.0
@@ -66,7 +66,7 @@ jobs:
       - name: Push Docker image
         run: |
            docker push milorad86/my-app:latest
-        #  docker push milorad86/my-app:${{github.sha}}
+           docker push milorad86/my-app:${{github.sha}}
 
 
   Deploy_to_Staging:
